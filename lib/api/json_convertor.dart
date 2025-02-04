@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:filmax_app/models/banners_model.dart';
+import 'package:filmax_app/models/category_model.dart';
 import 'package:filmax_app/models/home_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:http/http.dart';
@@ -159,5 +160,25 @@ class JsonConvertor {
         HomeModel(featuredVideoList, latestVideoList, allVideoList);
 
     return homeModel;
+  }
+
+  static List<CategoryModel> getCategories(Response response) {
+    Map map = jsonDecode(response.body);
+    List data = map['ALL_IN_ONE_VIDEO'];
+    List<CategoryModel> categoryList = [];
+
+    data.forEach((element) {
+      Map element;
+
+      String? cId = map['cid'];
+      String? categoryName = map['category_name'];
+      String? categoryImage = map['category_image'];
+      String? categoryImageThumb = map['category_image_thumb'];
+
+      categoryList.add(
+          CategoryModel(cId, categoryName, categoryImage, categoryImageThumb));
+    });
+
+    return categoryList;
   }
 }
