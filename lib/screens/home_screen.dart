@@ -168,7 +168,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: AppColors.darkOraange,
                                         ),
                                         errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
+                                            const Icon(
+                                          Icons.error,
+                                          color: AppColors.darkOraange,
+                                          size: 36,
+                                        ),
                                       ),
                                       Text(
                                         '${snapshot.data!.latestVideo![index].videoTitle}',

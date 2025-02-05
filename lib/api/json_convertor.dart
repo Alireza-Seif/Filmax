@@ -168,7 +168,7 @@ class JsonConvertor {
     List<CategoryModel> categoryList = [];
 
     data.forEach((element) {
-      Map element;
+      Map map = element;
 
       String? cId = map['cid'];
       String? categoryName = map['category_name'];
