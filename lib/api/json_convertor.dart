@@ -181,4 +181,51 @@ class JsonConvertor {
 
     return categoryList;
   }
+
+  static List<VideoModel> getVideos(Response response) {
+    Map map = jsonDecode(response.body);
+    List data = map['ALL_IN_ONE_VIDEO'];
+    List<VideoModel> videos = [];
+
+    data.forEach((element) {
+      Map map = element;
+
+      String? id = map['id'];
+      String? catId = map['cat_id'];
+      String? videoType = map['video_type'];
+      String? videoTitle = map['video_title'];
+      String? videoUrl = map['video_url'];
+      String? videoId = map['video_id'];
+      String? videoThumbnailB = map['video_thumbnail_b'];
+      String? videoThumbnailS = map['video_thumbnail_s'];
+      String? videoDuration = map['video_duration'];
+      String? videoDescription = map['video_description'];
+      String? rateAvg = map['rate_avg'];
+      String? totalViewer = map['totel_viewer'];
+      String? cid = map['cid'];
+      String? categoryName = map['category_name'];
+      String? categoryImage = map['category_image'];
+      String? categoryImageThumb = map['category_image_thumb'];
+
+      videos.add(VideoModel(
+          id,
+          catId,
+          videoType,
+          videoTitle,
+          videoUrl,
+          videoId,
+          videoThumbnailB,
+          videoThumbnailS,
+          videoDuration,
+          videoDescription,
+          rateAvg,
+          totalViewer,
+          cid,
+          categoryName,
+          categoryImage,
+          categoryImageThumb));
+    });
+
+    return videos;
+  }
 }

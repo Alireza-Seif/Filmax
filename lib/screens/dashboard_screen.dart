@@ -25,7 +25,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       backgroundColor: AppColors.black,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        title: const Text('Filmax',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 42),),
+        centerTitle: true,
+        foregroundColor: Colors.white,
+        backgroundColor: AppColors.orange ,
       ),
       body: _screens.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(

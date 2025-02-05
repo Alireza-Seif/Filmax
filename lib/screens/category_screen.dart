@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmax_app/api/api_caller.dart';
 import 'package:filmax_app/constants/app_colors.dart';
 import 'package:filmax_app/models/category_model.dart';
+import 'package:filmax_app/screens/category_videos_screen.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black,
-      body: Container(
+      body: Center(
         child: FutureBuilder<List<CategoryModel>>(
           future: categoryList,
           builder: (context, snapshot) {
@@ -37,30 +38,40 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return SizedBox(
-                      child: Column(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: '${snapshot.data![index].categoryImage}',
-                            fit: BoxFit.fill,
-                            height: 170,
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(
-                              backgroundColor: AppColors.orange,
-                              color: AppColors.darkOraange,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CategoryVideosScreen(category: snapshot.data![index],),
+                            ));
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl:
+                                  '${snapshot.data![index].categoryImage}',
+                              fit: BoxFit.fill,
+                              height: 170,
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(
+                                backgroundColor: AppColors.orange,
+                                color: AppColors.darkOraange,
+                              ),
+                              errorWidget: (context, url, error) => const Icon(
+                                Icons.error,
+                                color: AppColors.darkOraange,
+                                size: 36,
+                              ),
                             ),
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.error,
-                              color: AppColors.darkOraange,
-                              size: 36,
+                            Text(
+                              '${snapshot.data![index].categoryName}',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 22),
                             ),
-                          ),
-                          Text(
-                            '${snapshot.data![index].categoryName}',
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 22),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

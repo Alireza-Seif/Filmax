@@ -59,7 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else if (snapshot.hasError) {
                     return const Text('Error');
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: AppColors.orange,
+                        color: AppColors.darkOraange,
+                      ),
+                    );
                   }
                 },
                 future: bannersList,
@@ -124,7 +129,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(color: Colors.white),
                     );
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: AppColors.orange,
+                        color: AppColors.darkOraange,
+                      ),
+                    );
                   }
                 },
                 future: homeModel,
@@ -194,7 +204,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(color: Colors.white),
                     );
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: AppColors.orange,
+                        color: AppColors.darkOraange,
+                      ),
+                    );
                   }
                 },
                 future: homeModel,

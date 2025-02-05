@@ -3,6 +3,7 @@ import 'package:filmax_app/constants/constants.dart';
 import 'package:filmax_app/models/banners_model.dart';
 import 'package:filmax_app/models/category_model.dart';
 import 'package:filmax_app/models/home_model.dart';
+import 'package:filmax_app/models/video_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiCaller {
@@ -25,5 +26,13 @@ class ApiCaller {
     var response = await http.get(url);
     List<CategoryModel> categoriesList = JsonConvertor.getCategories(response);
     return categoriesList;
+  }
+
+  Future<List<VideoModel>> getVideos(String categoryId) async {
+    var url = Uri.parse(Constants.videoCategoryUrl + categoryId);
+    var response = await http.get(url);
+
+    List<VideoModel> videoList = JsonConvertor.getVideos(response);
+    return videoList;
   }
 }
