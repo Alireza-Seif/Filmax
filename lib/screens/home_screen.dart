@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmax_app/api/api_caller.dart';
 import 'package:filmax_app/constants/app_colors.dart';
+import 'package:filmax_app/screens/player_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
@@ -87,34 +88,45 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             height: 250,
                             child: ListView.builder(
-                              itemCount: snapshot.data!.latestVideo!.length,
+                              itemCount: snapshot.data!.featuredVideoList!.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  height: 280,
-                                  width: 140,
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: Column(
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            '${snapshot.data!.latestVideo![index].videoThumbnailS}',
-                                        height: 220,
-                                        fit: BoxFit.fill,
-                                        placeholder: (context, url) =>
-                                            const CircularProgressIndicator(
-                                          backgroundColor: AppColors.orange,
-                                          color: AppColors.darkOraange,
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PlayerScreen(
+                                              video: snapshot
+                                                  .data!.featuredVideoList![index]),
+                                        ));
+                                  },
+                                  child: Container(
+                                    height: 280,
+                                    width: 140,
+                                    margin: const EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl:
+                                              '${snapshot.data!.featuredVideoList![index].videoThumbnailS}',
+                                          height: 220,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator(
+                                            backgroundColor: AppColors.orange,
+                                            color: AppColors.darkOraange,
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                      ),
-                                      Text(
-                                        '${snapshot.data!.featuredVideoList![index].videoTitle}',
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      )
-                                    ],
+                                        Text(
+                                          '${snapshot.data!.featuredVideoList![index].videoTitle}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
@@ -161,35 +173,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                   snapshot.data!.featuredVideoList!.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  height: 280,
-                                  width: 140,
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: Column(
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            '${snapshot.data!.latestVideo![index].videoThumbnailS}',
-                                        height: 220,
-                                        fit: BoxFit.fill,
-                                        placeholder: (context, url) =>
-                                            const CircularProgressIndicator(
-                                          backgroundColor: AppColors.orange,
-                                          color: AppColors.darkOraange,
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PlayerScreen(
+                                              video: snapshot
+                                                  .data!.latestVideo![index]),
+                                        ));
+                                  },
+                                  child: Container(
+                                    height: 280,
+                                    width: 140,
+                                    margin: const EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl:
+                                              '${snapshot.data!.latestVideo![index].videoThumbnailS}',
+                                          height: 220,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator(
+                                            backgroundColor: AppColors.orange,
+                                            color: AppColors.darkOraange,
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(
+                                            Icons.error,
+                                            color: AppColors.darkOraange,
+                                            size: 36,
+                                          ),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(
-                                          Icons.error,
-                                          color: AppColors.darkOraange,
-                                          size: 36,
+                                        Text(
+                                          '${snapshot.data!.latestVideo![index].videoTitle}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
                                         ),
-                                      ),
-                                      Text(
-                                        '${snapshot.data!.latestVideo![index].videoTitle}',
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

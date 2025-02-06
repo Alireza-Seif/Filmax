@@ -43,35 +43,36 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CategoryVideosScreen(category: snapshot.data![index],),
+                              builder: (context) => CategoryVideosScreen(
+                                category: snapshot.data![index],
+                              ),
                             ));
                       },
-                      child: SizedBox(
-                        child: Column(
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl:
-                                  '${snapshot.data![index].categoryImage}',
-                              fit: BoxFit.fill,
-                              height: 170,
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator(
-                                backgroundColor: AppColors.orange,
-                                color: AppColors.darkOraange,
-                              ),
-                              errorWidget: (context, url, error) => const Icon(
-                                Icons.error,
-                                color: AppColors.darkOraange,
-                                size: 36,
-                              ),
+                      child: Column(
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl: '${snapshot.data![index].categoryImage}',
+                            fit: BoxFit.fill,
+                            height: 160,
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                              backgroundColor: AppColors.orange,
+                              color: AppColors.darkOraange,
                             ),
-                            Text(
-                              '${snapshot.data![index].categoryName}',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 22),
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.error,
+                              color: AppColors.darkOraange,
+                              size: 36,
                             ),
-                          ],
-                        ),
+                          ),
+                          Text(
+                            '${snapshot.data![index].categoryName}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },

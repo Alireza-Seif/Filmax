@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmax_app/api/api_caller.dart';
 import 'package:filmax_app/constants/app_colors.dart';
 import 'package:filmax_app/models/category_model.dart';
+import 'package:filmax_app/screens/player_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../models/video_model.dart';
@@ -35,50 +36,57 @@ class _CategoryVideosScreenState extends State<CategoryVideosScreen> {
         foregroundColor: Colors.white,
       ),
       body: Center(
-        child: Container(
-          child: FutureBuilder<List<VideoModel>>(
-            future: getVideos,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Container(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 180,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: '${snapshot.data![index].videoThumbnailB}',
-                              width: 220,
-                              height: 100,
-                              fit: BoxFit.fill,
-                            ),
-                            SizedBox(
-                              width: 16,
-                            ),
-                            Text(
-                              '${snapshot.data![index].videoTitle}',
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ),
-                      );
+        child: FutureBuilder<List<VideoModel>>(
+          future: getVideos,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PlayerScreen(video: snapshot.data![index]),
+                          ));
                     },
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return Text('Error');
-              } else {
-                return CircularProgressIndicator(
-                  backgroundColor: AppColors.orange,
-                  color: AppColors.darkOraange,
-                );
-              }
-            },
-          ),
+                    child: SizedBox(
+                      height: 180,
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl:
+                                '${snapshot.data![index].videoThumbnailB}',
+                            width: 220,
+                            height: 100,
+                            fit: BoxFit.fill,
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            '${snapshot.data![index].videoTitle}',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Text('Error');
+            } else {
+              return CircularProgressIndicator(
+                backgroundColor: AppColors.orange,
+                color: AppColors.darkOraange,
+              );
+            }
+          },
         ),
       ),
     );
