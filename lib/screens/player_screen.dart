@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:filmax_app/constants/app_colors.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerScreen extends StatefulWidget {
@@ -64,7 +65,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   return CircularProgressIndicator();
                 }
               },
-            )
+            ),
+            Html(
+                data: widget.video.videoDescription,
+                style: {'p': Style(color: Colors.white,direction: TextDirection.rtl)}),
           ],
         ),
       ),
