@@ -32,7 +32,7 @@ class _CategoryVideosScreenState extends State<CategoryVideosScreen> {
       backgroundColor: AppColors.black,
       appBar: AppBar(
         title: Text('${widget.category.categoryName}'),
-        backgroundColor: AppColors.darkOraange,
+        backgroundColor: AppColors.darkOrange,
         foregroundColor: Colors.white,
       ),
       body: Center(
@@ -83,7 +83,7 @@ class _CategoryVideosScreenState extends State<CategoryVideosScreen> {
             } else {
               return CircularProgressIndicator(
                 backgroundColor: AppColors.orange,
-                color: AppColors.darkOraange,
+                color: AppColors.darkOrange,
               );
             }
           },

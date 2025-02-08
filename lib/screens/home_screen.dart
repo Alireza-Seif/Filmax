@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(
                       child: CircularProgressIndicator(
                         backgroundColor: AppColors.orange,
-                        color: AppColors.darkOraange,
+                        color: AppColors.darkOrange,
                       ),
                     );
                   }
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           placeholder: (context, url) =>
                                               const CircularProgressIndicator(
                                             backgroundColor: AppColors.orange,
-                                            color: AppColors.darkOraange,
+                                            color: AppColors.darkOrange,
                                           ),
                                           errorWidget: (context, url, error) =>
                                               const Icon(Icons.error),
@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(
                       child: CircularProgressIndicator(
                         backgroundColor: AppColors.orange,
-                        color: AppColors.darkOraange,
+                        color: AppColors.darkOrange,
                       ),
                     );
                   }
@@ -197,12 +197,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           placeholder: (context, url) =>
                                               const CircularProgressIndicator(
                                             backgroundColor: AppColors.orange,
-                                            color: AppColors.darkOraange,
+                                            color: AppColors.darkOrange,
                                           ),
                                           errorWidget: (context, url, error) =>
                                               const Icon(
                                             Icons.error,
-                                            color: AppColors.darkOraange,
+                                            color: AppColors.darkOrange,
                                             size: 36,
                                           ),
                                         ),
@@ -230,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(
                       child: CircularProgressIndicator(
                         backgroundColor: AppColors.orange,
-                        color: AppColors.darkOraange,
+                        color: AppColors.darkOrange,
                       ),
                     );
                   }

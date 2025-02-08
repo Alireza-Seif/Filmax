@@ -16,7 +16,7 @@ class IntroScreen extends StatelessWidget {
               const Text(
                 'Filmax',
                 style: TextStyle(
-                  color: AppColors.darkOraange,
+                  color: AppColors.darkOrange,
                   fontSize: 46,
                   fontWeight: FontWeight.bold,
                 ),
@@ -48,7 +48,7 @@ class IntroScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.darkOraange,
+                      backgroundColor: AppColors.darkOrange,
                       foregroundColor: Colors.white),
                   child: const Text('Enter'),
                 ),

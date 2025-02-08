@@ -45,12 +45,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.darkOraange),
+                    backgroundColor: AppColors.darkOrange),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
+                        builder: (context) => RegisterScreen(),
                       ));
                 },
                 child: Text(
@@ -60,12 +60,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.darkOraange),
+                    backgroundColor: AppColors.darkOrange),
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RegisterScreen(),
+                        builder: (context) => LoginScreen(),
                       ));
                 },
                 child: Text(

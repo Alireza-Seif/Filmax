@@ -32,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       body: _screens.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.darkOraange,
+        selectedItemColor: AppColors.darkOrange,
         unselectedItemColor: Colors.white,
         backgroundColor: AppColors.bg,
         items: const [

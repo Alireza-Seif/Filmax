@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:filmax_app/models/banners_model.dart';
 import 'package:filmax_app/models/category_model.dart';
 import 'package:filmax_app/models/home_model.dart';
+import 'package:filmax_app/models/status_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:http/http.dart';
 
@@ -227,5 +228,17 @@ class JsonConvertor {
     });
 
     return videos;
+  }
+
+  static getRegister(Response response) {
+    Map map = jsonDecode(response.body);
+
+    List data = map['ALL_IN_ONE_VIDEO'];
+
+    Map mapData = data[0];
+    var msg = mapData['msg'];
+    String success = mapData['success'];
+
+    return StatusModel(msg, success);
   }
 }
