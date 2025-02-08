@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:filmax_app/models/banners_model.dart';
 import 'package:filmax_app/models/category_model.dart';
 import 'package:filmax_app/models/home_model.dart';
+import 'package:filmax_app/models/login_status_model.dart';
 import 'package:filmax_app/models/status_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:http/http.dart';
@@ -240,5 +241,24 @@ class JsonConvertor {
     String success = mapData['success'];
 
     return StatusModel(msg, success);
+  }
+
+  static getLogin(Response response) {
+    Map map = jsonDecode(response.body);
+
+    List data = map['ALL_IN_ONE_VIDEO'];
+
+    Map mapData = data[0];
+    String success = mapData['success'];
+    if (success == 1) {
+      String userId = mapData['user_id'];
+      String name = mapData['name'];
+      String email = mapData['email'];
+
+      return LoginStatus(userId, name, email, success);
+    } else {
+      var msg = mapData['msg'];
+      return StatusModel(msg, success);
+    }
   }
 }

@@ -45,4 +45,11 @@ class ApiCaller {
 
     return JsonConvertor.getRegister(response);
   }
+
+  Future  login(String email, String password) async {
+    var url =
+        Uri.parse('${Constants.registerUrl}&email=$email&password=$password');
+    var response = await http.get(url);
+    return JsonConvertor.getLogin(response);
+  }
 }

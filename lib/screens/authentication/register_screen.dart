@@ -127,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                         } else {
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Eror')));
+                              .showSnackBar(SnackBar(content: Text('Error')));
                         }
                       },
                     );
