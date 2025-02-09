@@ -251,16 +251,17 @@ class JsonConvertor {
     List data = map['ALL_IN_ONE_VIDEO'];
 
     Map mapData = data[0];
+    String userId = mapData['user_id'];
+    String name = mapData['name'];
+    String email = mapData['email'];
     String success = mapData['success'];
     if (success == '1') {
-      String userId = mapData['user_id'];
-      String name = mapData['name'];
-      String email = mapData['email'];
 
       AppSetting appSetting = AppSetting();
 
       appSetting.setUserLogged(true);
-      appSetting.setUserId(userId);
+      // appSetting.setUserId(userId);
+      appSetting.saveUserProfile(userId,name, email);
 
       print('${appSetting.getUserId()}');
 

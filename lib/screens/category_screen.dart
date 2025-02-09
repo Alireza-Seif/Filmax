@@ -81,7 +81,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
             } else if (snapshot.hasError) {
               return const Text('error');
             } else {
-              return const CircularProgressIndicator();
+              return CircularProgressIndicator(
+                backgroundColor: AppColors.orange,
+                color: AppColors.darkOrange,
+              );
             }
           },
         ),

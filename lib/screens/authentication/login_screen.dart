@@ -47,7 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderSide: BorderSide(color: AppColors.orange),
                     ),
                     hintText: 'Email'),
-                onChanged: (value) {},
+                onChanged: (value) {
+                  email = value;
+                },
               ),
               SizedBox(height: 10),
               TextField(
@@ -62,7 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderSide: BorderSide(color: AppColors.orange),
                     ),
                     hintText: 'Password'),
-                onChanged: (value) {},
+                onChanged: (value) {
+                  password = value;
+                },
               ),
               SizedBox(
                 height: 10,
@@ -76,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: Text('Login'),
                   onPressed: () async {
-                    ApiCaller().login(email, password).then((value) {
+                    await ApiCaller().login(email, password).then((value) {
                       if (value.success == '1') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
