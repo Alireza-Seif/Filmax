@@ -8,6 +8,8 @@ import 'package:filmax_app/models/status_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:http/http.dart';
 
+import '../constants/app_setting.dart';
+
 class JsonConvertor {
   static List<BannersModel> getBanners(Response response) {
     Map map = jsonDecode(response.body);
@@ -250,10 +252,17 @@ class JsonConvertor {
 
     Map mapData = data[0];
     String success = mapData['success'];
-    if (success == 1) {
+    if (success == '1') {
       String userId = mapData['user_id'];
       String name = mapData['name'];
       String email = mapData['email'];
+
+      AppSetting appSetting = AppSetting();
+
+      appSetting.setUserLogged(true);
+      appSetting.setUserId(userId);
+
+      print('${appSetting.getUserId()}');
 
       return LoginStatus(userId, name, email, success);
     } else {

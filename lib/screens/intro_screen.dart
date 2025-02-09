@@ -1,4 +1,5 @@
 import 'package:filmax_app/constants/app_colors.dart';
+import 'package:filmax_app/screens/authentication/login_screen.dart';
 import 'package:filmax_app/screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -27,7 +29,13 @@ class IntroScreen extends StatelessWidget {
               SizedBox(
                 width: 300,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ));
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.orange,
                       foregroundColor: Colors.white),

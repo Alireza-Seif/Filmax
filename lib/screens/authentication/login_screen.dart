@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.darkOrange,
         foregroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
           'Login at Filmax',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
@@ -45,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColors.orange),
                     ),
-                    hintText: 'User Name'),
+                    hintText: 'Email'),
                 onChanged: (value) {},
               ),
               SizedBox(height: 10),
@@ -74,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     foregroundColor: Colors.white,
                   ),
                   child: Text('Login'),
-                  onPressed: () {
+                  onPressed: () async {
                     ApiCaller().login(email, password).then((value) {
                       if (value.success == '1') {
                         ScaffoldMessenger.of(context).showSnackBar(

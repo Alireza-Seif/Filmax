@@ -6,5 +6,5 @@ class Constants {
   static const String videoCategoryUrl = '${baseUrl}api.php?cat_id=';
 
   static const String registerUrl = '${baseUrl}api.php?user_register';
-  static const String loginUrl = '${baseUrl}api.php?user_login';
+  static const String loginUrl = '${baseUrl}api.php?users_login';
 }

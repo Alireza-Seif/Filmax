@@ -25,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.darkOrange,
         foregroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
           'Register at Filmax',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
@@ -121,7 +122,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (value.success == '1') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-
                               content: Text(value.msg!),
                             ),
                           );

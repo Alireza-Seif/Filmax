@@ -11,7 +11,10 @@ class ApiCaller {
   Future<List<BannersModel>> getBannersList() async {
     var url = Uri.parse(Constants.bannersUrl);
     var response = await http.get(url);
+
     List<BannersModel> banners = JsonConvertor.getBanners(response);
+    print(response.body);
+
     return banners;
   }
 
@@ -19,13 +22,18 @@ class ApiCaller {
     var url = Uri.parse(Constants.videoUrl);
     var response = await http.get(url);
     HomeModel homeModel = JsonConvertor.getHomeVideos(response);
+    print(response.body);
+
     return homeModel;
   }
 
   Future<List<CategoryModel>> getCategories() async {
     var url = Uri.parse(Constants.categoryUrl);
     var response = await http.get(url);
+
     List<CategoryModel> categoriesList = JsonConvertor.getCategories(response);
+    print(response.body);
+
     return categoriesList;
   }
 
@@ -34,6 +42,8 @@ class ApiCaller {
     var response = await http.get(url);
 
     List<VideoModel> videoList = JsonConvertor.getVideos(response);
+    print(response.body);
+
     return videoList;
   }
 
@@ -42,14 +52,16 @@ class ApiCaller {
     var url = Uri.parse(
         '${Constants.registerUrl}&name=$name&email=$email&password=$password&phone=$phone');
     var response = await http.get(url);
+    print(response.body);
 
     return JsonConvertor.getRegister(response);
   }
 
-  Future  login(String email, String password) async {
+  Future login(String email, String password) async {
     var url =
-        Uri.parse('${Constants.registerUrl}&email=$email&password=$password');
+        Uri.parse('${Constants.loginUrl}&email=$email&password=$password');
     var response = await http.get(url);
+    print(response.body);
     return JsonConvertor.getLogin(response);
   }
 }

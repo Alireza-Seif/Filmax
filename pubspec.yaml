@@ -41,6 +41,7 @@ dependencies:
   chewie: ^1.10.0
   video_player: ^2.9.2
   flutter_html: ^3.0.0-beta.2
+  shared_preferences: ^2.5.1
 
 
 dev_dependencies:
