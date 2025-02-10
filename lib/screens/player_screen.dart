@@ -1,5 +1,7 @@
 import 'package:chewie/chewie.dart';
+import 'package:filmax_app/api/api_caller.dart';
 import 'package:filmax_app/constants/app_colors.dart';
+import 'package:filmax_app/models/video_detail_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -17,6 +19,8 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
+  ApiCaller apiCaller = ApiCaller();
+  late Future<VideoDetailModel> videoDetail;
 
   @override
   void initState() {
@@ -25,6 +29,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     videoPlayerController =
         VideoPlayerController.networkUrl(Uri.parse('${widget.video.videoUrl}'));
     // loadVideoPlayer();
+    videoDetail = apiCaller.getSingleVideo(widget.video.id!);
   }
 
   Future<bool> loadVideoPlayer() async {
@@ -47,30 +52,104 @@ class _PlayerScreenState extends State<PlayerScreen> {
         backgroundColor: AppColors.orange,
         foregroundColor: Colors.white,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            FutureBuilder<bool>(
-              future: loadVideoPlayer(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Container(
-                      height: 200, child: Chewie(controller: chewieController));
-                } else if (snapshot.hasError) {
-                  return Text(
-                    'Error: $snapshot',
-                    style: TextStyle(color: Colors.white),
-                  );
-                } else {
-                  return CircularProgressIndicator();
-                }
-              },
-            ),
-            Html(
-                data: widget.video.videoDescription,
-                style: {'p': Style(color: Colors.white,direction: TextDirection.rtl)}),
-          ],
-        ),
+      body: FutureBuilder<VideoDetailModel>(
+        future: videoDetail,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    FutureBuilder<bool>(
+                      future: loadVideoPlayer(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return SizedBox(
+                            height: 200,
+                            child: Chewie(controller: chewieController),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text(
+                            'Error: $snapshot',
+                            style: TextStyle(color: Colors.white),
+                          );
+                        } else {
+                          return CircularProgressIndicator(
+                            backgroundColor: AppColors.orange,
+                            color: AppColors.darkOrange,
+                          );
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 200,
+                      width: MediaQuery.of(context).size.width,
+                      child: Html(
+                        data: widget.video.videoDescription,
+                        style: {
+                          'p': Style(
+                              color: Colors.white, direction: TextDirection.rtl)
+                        },
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.userCommentsList!.length,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          child: Row(
+                            children: [
+                              Text(
+                                '${snapshot.data!.userCommentsList![index].userName}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                '${snapshot.data!.userCommentsList![index].commentText}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: TextField(
+                        cursorColor: AppColors.darkOrange,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            hintStyle: TextStyle(color: Colors.white),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.darkOrange),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColors.orange),
+                            ),
+                            hintText: 'Write your Comment'),
+                        onChanged: (value) {},
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Text(
+              'Error in Server',
+              style: TextStyle(color: Colors.white),
+            );
+          } else {
+            return CircularProgressIndicator(
+              backgroundColor: AppColors.orange,
+              color: AppColors.darkOrange,
+            );
+          }
+        },
       ),
     );
   }

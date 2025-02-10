@@ -5,10 +5,13 @@ import 'package:filmax_app/models/category_model.dart';
 import 'package:filmax_app/models/home_model.dart';
 import 'package:filmax_app/models/login_status_model.dart';
 import 'package:filmax_app/models/status_model.dart';
+import 'package:filmax_app/models/video_detail_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:http/http.dart';
 
 import '../constants/app_setting.dart';
+import '../models/related_video_model.dart';
+import '../models/user_comments_model.dart';
 
 class JsonConvertor {
   static List<BannersModel> getBanners(Response response) {
@@ -212,6 +215,69 @@ class JsonConvertor {
       String? categoryImageThumb = map['category_image_thumb'];
 
       videos.add(VideoModel(
+        id,
+        catId,
+        videoType,
+        videoTitle,
+        videoUrl,
+        videoId,
+        videoThumbnailB,
+        videoThumbnailS,
+        videoDuration,
+        videoDescription,
+        rateAvg,
+        totalViewer,
+        cid,
+        categoryName,
+        categoryImage,
+        categoryImageThumb,
+      ));
+    });
+
+    return videos;
+  }
+
+  static VideoDetailModel getSingleVideos(Response response) {
+    Map mapData = jsonDecode(response.body);
+    List data = mapData['ALL_IN_ONE_VIDEO'];
+
+    Map map = data[0];
+    String? id = map['id'];
+    String? catId = map['cat_id'];
+    String? videoType = map['video_type'];
+    String? videoTitle = map['video_title'];
+    String? videoUrl = map['video_url'];
+    String? videoId = map['video_id'];
+    String? videoThumbnailB = map['video_thumbnail_b'];
+    String? videoThumbnailS = map['video_thumbnail_s'];
+    String? videoDuration = map['video_duration'];
+    String? videoDescription = map['video_description'];
+    String? rateAvg = map['rate_avg'];
+    String? totalViewer = map['totel_viewer'];
+    String? cid = map['cat_id'];
+    String? categoryName = map['category_name'];
+    List related = map['related'];
+    List<RelatedVideoModel> relatedVideos = [];
+
+    related.forEach(
+      (element) {
+        Map mapRelated = element;
+        String? id = mapRelated['id'];
+        String? catId = mapRelated['cat_id'];
+        String? videoType = mapRelated['video_type'];
+        String? videoTitle = mapRelated['video_title'];
+        String? videoUrl = mapRelated['video_url'];
+        String? videoId = mapRelated['video_id'];
+        String? videoThumbnailB = mapRelated['video_thumbnail_b'];
+        String? videoThumbnailS = mapRelated['video_thumbnail_s'];
+        String? videoDuration = mapRelated['video_duration'];
+        String? videoDescription = mapRelated['video_description'];
+        String? rateAvg = mapRelated['rate_avg'];
+        String? totalViewer = mapRelated['totel_viewer'];
+        String? cid = mapRelated['cat_id'];
+        String? categoryName = mapRelated['category_name'];
+
+        relatedVideos.add(RelatedVideoModel(
           id,
           catId,
           videoType,
@@ -226,11 +292,42 @@ class JsonConvertor {
           totalViewer,
           cid,
           categoryName,
-          categoryImage,
-          categoryImageThumb));
-    });
+        ));
+      },
+    );
 
-    return videos;
+    List userComments = map['user_comments'];
+    List<UserCommentsModel>? userCommentsList = [];
+
+    userComments.forEach(
+      (element) {
+        Map mapUser = element;
+        String? videoId = mapUser['video_id'];
+        String? userName = mapUser['user_name'];
+        String? commentText = mapUser['comment_text'];
+        userCommentsList.add(UserCommentsModel(videoId, userName, commentText));
+      },
+    );
+
+    VideoDetailModel videoDetailModel = VideoDetailModel(
+        id,
+        catId,
+        videoType,
+        videoTitle,
+        videoUrl,
+        videoId,
+        videoThumbnailB,
+        videoThumbnailS,
+        videoDuration,
+        videoDescription,
+        rateAvg,
+        totalViewer,
+        cid,
+        categoryName,
+        relatedVideos,
+        userCommentsList);
+
+    return videoDetailModel;
   }
 
   static getRegister(Response response) {
@@ -256,12 +353,11 @@ class JsonConvertor {
     String email = mapData['email'];
     String success = mapData['success'];
     if (success == '1') {
-
       AppSetting appSetting = AppSetting();
 
       appSetting.setUserLogged(true);
       // appSetting.setUserId(userId);
-      appSetting.saveUserProfile(userId,name, email);
+      appSetting.saveUserProfile(userId, name, email);
 
       print('${appSetting.getUserId()}');
 

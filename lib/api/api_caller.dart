@@ -4,6 +4,7 @@ import 'package:filmax_app/models/banners_model.dart';
 import 'package:filmax_app/models/category_model.dart';
 import 'package:filmax_app/models/home_model.dart';
 import 'package:filmax_app/models/status_model.dart';
+import 'package:filmax_app/models/video_detail_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +14,6 @@ class ApiCaller {
     var response = await http.get(url);
 
     List<BannersModel> banners = JsonConvertor.getBanners(response);
-    print(response.body);
 
     return banners;
   }
@@ -22,7 +22,6 @@ class ApiCaller {
     var url = Uri.parse(Constants.videoUrl);
     var response = await http.get(url);
     HomeModel homeModel = JsonConvertor.getHomeVideos(response);
-    print(response.body);
 
     return homeModel;
   }
@@ -32,7 +31,6 @@ class ApiCaller {
     var response = await http.get(url);
 
     List<CategoryModel> categoriesList = JsonConvertor.getCategories(response);
-    print(response.body);
 
     return categoriesList;
   }
@@ -42,7 +40,6 @@ class ApiCaller {
     var response = await http.get(url);
 
     List<VideoModel> videoList = JsonConvertor.getVideos(response);
-    print(response.body);
 
     return videoList;
   }
@@ -52,7 +49,6 @@ class ApiCaller {
     var url = Uri.parse(
         '${Constants.registerUrl}&name=$name&email=$email&password=$password&phone=$phone');
     var response = await http.get(url);
-    print(response.body);
 
     return JsonConvertor.getRegister(response);
   }
@@ -61,7 +57,14 @@ class ApiCaller {
     var url =
         Uri.parse('${Constants.loginUrl}&email=$email&password=$password');
     var response = await http.get(url);
-    print(response.body);
     return JsonConvertor.getLogin(response);
+  }
+
+  Future<VideoDetailModel> getSingleVideo(String videoId) async {
+    var url = Uri.parse(Constants.singleVideoUrl + videoId);
+    var response = await http.get(url);
+
+    VideoDetailModel video = JsonConvertor.getSingleVideos(response);
+    return video;
   }
 }
