@@ -67,4 +67,13 @@ class ApiCaller {
     VideoDetailModel video = JsonConvertor.getSingleVideos(response);
     return video;
   }
+
+  Future<StatusModel> addComment(String commentText, String user_name, String post_id) async {
+    var url = Uri.parse(
+        '${Constants.addCommentUrl}&comment_text$commentText&user_name$user_name&post_id=$post_id');
+    var response = await http.get(url);
+
+    StatusModel statusModel = JsonConvertor.sendComment(response);
+    return statusModel;
+  }
 }

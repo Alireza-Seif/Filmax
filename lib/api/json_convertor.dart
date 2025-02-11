@@ -367,4 +367,16 @@ class JsonConvertor {
       return StatusModel(msg, success);
     }
   }
+
+
+  static StatusModel sendComment(Response response){
+    Map map = jsonDecode(response.body);
+    List data = map['ALL_IN_ONE_VIDEO'];
+    Map mapData = data[0];
+    var msg = mapData['msg'];
+    String success = mapData['success'];
+
+    return StatusModel(msg, success);
+
+  }
 }

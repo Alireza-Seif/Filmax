@@ -1,6 +1,8 @@
 import 'package:chewie/chewie.dart';
 import 'package:filmax_app/api/api_caller.dart';
 import 'package:filmax_app/constants/app_colors.dart';
+import 'package:filmax_app/constants/app_setting.dart';
+import 'package:filmax_app/models/status_model.dart';
 import 'package:filmax_app/models/video_detail_model.dart';
 import 'package:filmax_app/models/video_model.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
   ApiCaller apiCaller = ApiCaller();
   late Future<VideoDetailModel> videoDetail;
 
+  String commentText = '';
+  AppSetting appSetting = AppSetting();
+
+  String userName = '';
+
   @override
   void initState() {
     // TODO: implement initState
@@ -29,7 +36,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
     videoPlayerController =
         VideoPlayerController.networkUrl(Uri.parse('${widget.video.videoUrl}'));
     // loadVideoPlayer();
-    videoDetail = apiCaller.getSingleVideo(widget.video.id!);
+    getUserId();
+  }
+
+  getUserId() async {
+    userName = await appSetting.getUserName();
   }
 
   Future<bool> loadVideoPlayer() async {
@@ -44,6 +55,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    videoDetail = apiCaller.getSingleVideo(widget.video.id!);
+
     return Scaffold(
       backgroundColor: AppColors.black,
       appBar: AppBar(
@@ -131,7 +144,37 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               borderSide: BorderSide(color: AppColors.orange),
                             ),
                             hintText: 'Write your Comment'),
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          commentText = value;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.darkOrange,
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () async {
+                          StatusModel statusModel = await apiCaller.addComment(
+                              commentText, userName, widget.video.id!);
+
+                          if (statusModel.success == '1') {
+                            SnackBar snackBar =
+                                SnackBar(content: Text('Successful'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else {
+                            SnackBar snackBar =
+                                SnackBar(content: Text('Error '));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
+                        child: Text('Send'),
                       ),
                     ),
                   ],
