@@ -48,31 +48,36 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                             ));
                       },
-                      child: Column(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: '${snapshot.data![index].categoryImage}',
-                            fit: BoxFit.fill,
-                            height: 160,
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(
-                              backgroundColor: AppColors.orange,
-                              color: AppColors.darkOrange,
+                      child: Container(
+                        margin: EdgeInsets.all(5),
+                        child: Column(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl:
+                                  '${snapshot.data![index].categoryImage}',
+                              fit: BoxFit.fill,
+                              height: 160,
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(
+                                backgroundColor: AppColors.orange,
+                                color: AppColors.darkOrange,
+                              ),
+                              errorWidget: (context, url, error) => const Icon(
+                                Icons.error,
+                                color: AppColors.darkOrange,
+                                size: 36,
+                              ),
                             ),
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.error,
-                              color: AppColors.darkOrange,
-                              size: 36,
+                            Text(
+                              '${snapshot.data![index].categoryName}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontFamily: 'BYekanBoled',
+                              ),
                             ),
-                          ),
-                          Text(
-                            '${snapshot.data![index].categoryName}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

@@ -54,24 +54,52 @@ class _CategoryVideosScreenState extends State<CategoryVideosScreen> {
                           ));
                     },
                     child: SizedBox(
-                      height: 180,
+                      height: 200,
                       width: MediaQuery.of(context).size.width,
                       child: Row(
                         children: [
-                          CachedNetworkImage(
-                            imageUrl:
-                                '${snapshot.data![index].videoThumbnailB}',
-                            width: 220,
-                            height: 100,
-                            fit: BoxFit.fill,
+                          Card(
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  '${snapshot.data![index].videoThumbnailB}',
+                              width: 220,
+                              height: 180,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                           SizedBox(
                             width: 16,
                           ),
-                          Text(
-                            '${snapshot.data![index].videoTitle}',
-                            style: TextStyle(color: Colors.white),
-                          )
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${snapshot.data![index].videoTitle}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'BYekanBold',
+                                ),
+                              ),
+                              Text(
+                                '${snapshot.data![index].totalViewer}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'BYekanBold',
+                                ),
+                              ),
+                              Text(
+                                '${snapshot.data![index].rateAvg}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'BYekanBold',
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),

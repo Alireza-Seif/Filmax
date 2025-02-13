@@ -74,7 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 margin: const EdgeInsets.all(10),
                 child: const Text(
                   'Latest videos',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'BYekanBold',
+                    fontSize: 18,
+                  ),
                 ),
               ),
               FutureBuilder(
@@ -88,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             height: 250,
                             child: ListView.builder(
-                              itemCount: snapshot.data!.featuredVideoList!.length,
+                              itemCount:
+                                  snapshot.data!.featuredVideoList!.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
@@ -97,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => PlayerScreen(
-                                              video: snapshot
-                                                  .data!.featuredVideoList![index]),
+                                              video: snapshot.data!
+                                                  .featuredVideoList![index]),
                                         ));
                                   },
                                   child: Container(
@@ -123,7 +128,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           '${snapshot.data!.featuredVideoList![index].videoTitle}',
                                           style: const TextStyle(
-                                              color: Colors.white),
+                                            color: Colors.white,
+                                            fontFamily: 'BYekan',
+                                          ),
                                         )
                                       ],
                                     ),
@@ -155,7 +162,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 margin: const EdgeInsets.all(10),
                 child: const Text(
                   'Special videos',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'BYekanBold',
+                    fontSize: 18,
+                  ),
                 ),
               ),
               FutureBuilder(
@@ -209,7 +220,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           '${snapshot.data!.latestVideo![index].videoTitle}',
                                           style: const TextStyle(
-                                              color: Colors.white),
+                                            color: Colors.white,
+                                            fontFamily: 'BYekan',
+                                          ),
                                         ),
                                       ],
                                     ),

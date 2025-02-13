@@ -117,20 +117,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   child: Text('Shin up'),
                   onPressed: () {
-                    ApiCaller().register(name, email, phone, password).then(
-                      (value) {
-                        if (value.success == '1') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(value.msg!),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Error')));
-                        }
-                      },
-                    );
+                    if (name.isEmpty &&
+                        email.isEmpty &&
+                        password.isEmpty &&
+                        phone.isEmpty) {
+                      SnackBar snackBar =
+                          SnackBar(content: Text('Please Enter Your Info'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      ApiCaller().register(name, email, phone, password).then(
+                        (value) {
+                          if (value.success == '1') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(value.msg!),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(content: Text('Error')));
+                          }
+                        },
+                      );
+                    }
                   },
                 ),
               ),

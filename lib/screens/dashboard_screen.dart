@@ -25,16 +25,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       backgroundColor: AppColors.black,
       appBar: AppBar(
-        title: const Text('Filmax',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 42),),
+        title: const Text(
+          'Filmax',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 42,
+            fontFamily: 'BYekanBold',
+          ),
+        ),
         centerTitle: true,
         foregroundColor: Colors.white,
-        backgroundColor: AppColors.orange ,
+        backgroundColor: AppColors.orange,
       ),
       body: _screens.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.darkOrange,
         unselectedItemColor: Colors.white,
         backgroundColor: AppColors.bg,
+        selectedFontSize: 16,
+        selectedLabelStyle: TextStyle(
+          fontFamily: 'BYekanBold',
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontFamily: 'BYekan',
+        ),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
